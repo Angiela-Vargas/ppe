@@ -15,10 +15,19 @@ def load_model():
     return YOLO(model_path)
 
 model = load_model()
+if model is None:
+    st.stop()
+
 
 st.title("🦺 Detector de EPP")
 st.markdown("Detecta: **Botas, Guantes, Casco, Persona, Chaleco**")
-
+icons = {
+    "botas": "🥾",
+    "guantes": "🧤",
+    "casco": "⛑️",
+    "persona": "🧍",
+    "chaleco": "🦺"
+}
 uploaded_file = st.file_uploader("📤 Sube una imagen", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
@@ -49,7 +58,8 @@ if uploaded_file is not None:
         st.markdown("### 🧾 Objetos detectados:")
         if labels_detected:
             for label in labels_detected:
-                st.write(f"✅ {label}")
+                icon = icons.get(label.lower(), "✅")
+                st.write(f"{icon} {label.capitalize()}")
         else:
             st.write("⚠️ No se detectaron objetos.")
 
