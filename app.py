@@ -8,9 +8,9 @@ import os
 # Función para cargar el modelo con cache
 @st.cache_resource
 def load_model():
-    model_path = "best.pt"
+    model_path = "best.torchscript"
     if not os.path.exists(model_path):
-        st.error("El modelo best.pt no se encontró. Asegúrate de que esté en la misma carpeta que app.py.")
+        st.error("El modelo best.torchscript no se encontró. Asegúrate de que esté en la misma carpeta que app.py.")
         return None
     return YOLO(model_path)
 
